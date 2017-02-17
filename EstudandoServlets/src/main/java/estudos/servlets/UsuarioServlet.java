@@ -1,35 +1,51 @@
 package estudos.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import estudos.model.Usuario;
 
 
 @WebServlet(urlPatterns="/usuario")
 public class UsuarioServlet extends HttpServlet {
 
 	private final String utf8 = "UTF-8";
+	
+	List<Usuario> usuarios = new ArrayList<>();
 		
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		//Configurando a resposta para a codificação de caracteres UTF-8
-		resp.setCharacterEncoding(utf8);
+		//através do dispatcher podemos redirecionar, para a página informada no construtor, com o forward passando a requisição e a resposta.
+		RequestDispatcher dispatcher = req.getRequestDispatcher("usuario.jsp");	
+		
+		//setando atributos com chave e valor para ser recuperado na página JSP
+		req.setAttribute("usuarios", usuarios);
+		
+		dispatcher.forward(req, resp);
+		
+		
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		String nome = req.getParameter("nome");
+		Usuario user = new Usuario();
 		
-		resp.setCharacterEncoding(utf8);
-		resp.getWriter().print("Nome enviado foi: "+nome);
+		user.setNome(req.getParameter("nome"));
+		user.setEmail(req.getParameter("email"));
+		
+		usuarios.add(user);
+
+		doGet(req, resp);
 	}
 	
 	@Override

@@ -5,8 +5,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cadastro de cliente</title>
-<head>
+</head>
 <body>
+	<%
+		Object msg = request.getAttribute("mensagem");
+		if(msg!=null){
+			out.print(msg.toString());
+		}
+	%>
 
 	<form action="usuario" method="POST">
 		<label id="nome">Nome</label> <input id="nome" type="text" name="nome"><br>

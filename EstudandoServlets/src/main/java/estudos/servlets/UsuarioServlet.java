@@ -27,9 +27,11 @@ public class UsuarioServlet extends HttpServlet {
 		//através do dispatcher podemos redirecionar, para a página informada no construtor, com o forward passando a requisição e a resposta.
 		RequestDispatcher dispatcher = req.getRequestDispatcher("usuario.jsp");	
 		
-		//setando atributos com chave e valor para ser recuperado na página JSP
+		//setando atributos com chave e valor para ser recuperado na página JSP e setando o enconding
 		req.setAttribute("usuarios", usuarios);
+		req.setCharacterEncoding(utf8);
 		
+		//redirecionamento do tipo foward que envia uma nova página ao browser
 		dispatcher.forward(req, resp);
 		
 		
@@ -44,22 +46,22 @@ public class UsuarioServlet extends HttpServlet {
 		user.setEmail(req.getParameter("email"));
 		
 		usuarios.add(user);
-
-		doGet(req, resp);
-	}
-	
-	@Override
-	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		resp.setCharacterEncoding(utf8);
 		
-	}
-	
-	@Override
-	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		/* Foi utilizado neste caso pois foi necessário retornar uma nova página com novos dados. 
+		 * No caso do redirect não é o mais adequado pois seu objetivo é pedir ao browser que faça uma nova 
+		 * requisição ao servidor */
+		RequestDispatcher dispatcher = req.getRequestDispatcher("usuario.jsp");
 		
-		resp.setCharacterEncoding(utf8);
+		req.setAttribute("mensagem", "Usuario "+user.getNome()+" cadastrado com sucesso!");
+		req.setAttribute("usuarios", usuarios);
+		req.setCharacterEncoding(utf8);
+		
+		dispatcher.forward(req, resp);
+
+		/* redirecionamento do tipo redirect. Este tipo solicita ao brower que faça uma nova requisição GET 
+		 * chamando pela url informada pelo parâmetro, neste caso o usuario
+		 * 
+		resp.sendRedirect("usuario"); */
 	}
-	
 	
 }

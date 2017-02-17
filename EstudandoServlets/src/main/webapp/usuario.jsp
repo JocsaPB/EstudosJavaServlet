@@ -5,13 +5,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cadastro de cliente</title>
-	<style type="text/css">
-		.tamanho {
-			width: 40px
-		}
-	</style>
-
-</head>
 <body>
 
 	<form action="usuario" method="POST">
@@ -30,13 +23,5 @@
 			
 		}
 	%>
-	
-	
-	
-	
-	
-	
-	
-	
 </body>
 </html>

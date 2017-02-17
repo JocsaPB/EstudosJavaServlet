@@ -5,6 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Cadastro de cliente</title>
+<head>
 <body>
 
 	<form action="usuario" method="POST">
